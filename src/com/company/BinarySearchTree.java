@@ -5,8 +5,6 @@ package com.company;
  */
 public class BinarySearchTree extends BinaryTree {
 
-    Node root;
-
     public BinarySearchTree() {
         root = null;
     }
@@ -92,8 +90,6 @@ public class BinarySearchTree extends BinaryTree {
         return false;
     }
 
-    //we can use the remove function from the BT because it will work the same, due to nodes being sorted in BST
-    //it will produce correct result
     @Override
     public void remove(int data) {
         if (root == null) {
@@ -101,38 +97,5 @@ public class BinarySearchTree extends BinaryTree {
         } else remove(root, root, data);
     }
 
-    public boolean isEmpty() {
-        return root == null;
-    }
-
-    @Override
-    public Node getRoot() {
-        return root;
-    }
-
-    @Override
-    public void print() {
-        if (root != null) {
-            print(root);
-        } else {
-            System.out.println("The tree is empty.");
-        }
-        System.out.println();
-    }
-
-    @Override
-    public void path(int end) {
-        Node endNode = search(root, end);
-        path(root, endNode);
-    }
-
-    @Override
-    public BinaryTree subtree(int data) throws Exception {
-        Node node = search(root, data);
-        if (node == null) {
-            throw new Exception("Such element doesn't exist");
-        }
-        return subtree(node);
-    }
 
 }

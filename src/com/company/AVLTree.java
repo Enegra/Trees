@@ -5,9 +5,7 @@ package com.company;
  */
 public class AVLTree extends BinarySearchTree {
 
-    Node root;
-
-    public int getHeight(Node node){
+    private int getHeight(Node node){
         if (node!=null){
             return node.getHeight();
         }
@@ -87,7 +85,7 @@ public class AVLTree extends BinarySearchTree {
         return rotateRight(parent);
     }
 
-    int getBalance(Node node){
+    private int getBalance(Node node){
         if (node!=null){
             return (getHeight(node.getLeftChild()) - getHeight(node.getRightChild()));
         }
@@ -125,51 +123,6 @@ public class AVLTree extends BinarySearchTree {
         }
         return false;
     }
-
-    @Override
-    public Node search(int data){
-        return search(root,data);
-    }
-
-    @Override
-    public boolean find(int data) {
-        return root != null && search(data)!=null;
-    }
-
-    public boolean isEmpty(){
-        return root==null;
-    }
-
-    @Override
-    public Node getRoot() {
-        return root;
-    }
-
-    @Override
-    public void print() {
-        if (root != null) {
-            print(root);
-        } else {
-            System.out.println("The tree is empty.");
-        }
-        System.out.println();
-    }
-
-    @Override
-    public void path(int end){
-        Node endNode = search(root, end);
-        path(root, endNode);
-    }
-
-    @Override
-    public BinaryTree subtree(int data) throws Exception {
-        Node node = search(root, data);
-        if (node == null) {
-            throw new Exception("Such element doesn't exist");
-        }
-        return subtree(node);
-    }
-
 
     private void rebalance(Node node, int data){
         //checking node balance

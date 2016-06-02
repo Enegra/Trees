@@ -2,7 +2,7 @@ package com.company;
 
 public class Main {
 
-    public static void presentBinaryTree() throws Exception {
+    static void presentBinaryTree() throws Exception {
         BinaryTree binaryTree = new BinaryTree();
         System.out.println("Binary Tree");
         System.out.println();
@@ -51,7 +51,7 @@ public class Main {
 
     }
 
-    public static void presentBST() throws Exception {
+    static void presentBST() throws Exception {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
         System.out.println("Binary Tree");
         System.out.println();
@@ -89,7 +89,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void presentAVL() throws Exception {
+    static void presentAVL() throws Exception {
         AVLTree avlTree = new AVLTree();
         System.out.println("Binary Tree");
         System.out.println();
@@ -157,6 +157,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
 //        presentBinaryTree();
 //        presentBST();
-        presentAVL();
+//        presentAVL();
     }
 }
