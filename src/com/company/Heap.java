@@ -24,5 +24,40 @@ public class Heap extends BinaryTree {
         }
     }
 
+    private void sort(Node node) {
+        Node parent = getParent(node);
+        if(node.getData() < parent.getData()) {
+            //sets node as children of parent's parent if parent isn't root
+            if(parent != root) {
+                Node parentsParent = getParent(parent);
+                if(parentsParent.getLeftChild() == parent){
+                    parentsParent.setLeftChild(node);
+                } else {
+                    parentsParent.setRightChild(node);
+                }
+            }
+            //swaps around node and parent in binary tree and heapElements
+            int temp = heapElements.indexOf(parent);
+            if(parent.getLeftChild() == node) {
+                heapElements.set(heapElements.indexOf(node), parent);
+                heapElements.set(temp, node);
+                node.setLeftChild(parent);
+                node.setRightChild(parent.getRightChild());
+            } else {
+                heapElements.set(heapElements.indexOf(node), parent);
+                heapElements.set(temp, node);
+                node.setRightChild(parent);
+                node.setLeftChild(parent.getLeftChild());
+            }
+        }
+    }
+
+
+    private Node getParent(Node child) {
+        int childIndex = heapElements.indexOf(child) + 1 ;
+        return heapElements.get(childIndex/2);
+    }
+
+
 
 }
