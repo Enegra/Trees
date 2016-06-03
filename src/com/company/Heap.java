@@ -8,10 +8,20 @@ import java.util.ArrayList;
 public class Heap extends BinaryTree {
 
     ArrayList<Node> heapElements;
+    private boolean min;
 
+    //the heap is a min-heap by default
     public Heap(){
         incompleteNodes = new ArrayList<Node>();
         heapElements = new ArrayList<Node>();
+        min = true;
+    }
+
+    //constructor for a max-heap
+    public Heap(boolean min){
+        incompleteNodes = new ArrayList<Node>();
+        heapElements = new ArrayList<Node>();
+        this.min = min;
     }
 
     @Override
@@ -20,14 +30,19 @@ public class Heap extends BinaryTree {
             Node newNode = new Node(data);
             insert(newNode);
             heapElements.add(newNode);
-            //todo function to place element on correct place
+            Node parent = getParent(newNode);
+            while (parent!=null && !isBalanced(newNode, parent)){
+                sort(newNode, parent);
+                parent = getParent(newNode);
+            }
+
         }
     }
 
-    private void sort(Node node) {
-        Node parent = getParent(node);
-        if(node.getData() < parent.getData()) {
-            //sets node as children of parent's parent if parent isn't root
+    //todo fix incomplete nodes!!!
+
+    private void sort(Node node, Node parent) {
+            //sets node as child of parent's parent if parent isn't root
             if(parent != root) {
                 Node parentsParent = getParent(parent);
                 if(parentsParent.getLeftChild() == parent){
@@ -37,27 +52,37 @@ public class Heap extends BinaryTree {
                 }
             }
             //swaps around node and parent in binary tree and heapElements
-            int temp = heapElements.indexOf(parent);
+            int parentIndex = heapElements.indexOf(parent);
+            heapElements.set(heapElements.indexOf(node), parent);
+            heapElements.set(parentIndex, node);
             if(parent.getLeftChild() == node) {
-                heapElements.set(heapElements.indexOf(node), parent);
-                heapElements.set(temp, node);
                 node.setLeftChild(parent);
                 node.setRightChild(parent.getRightChild());
             } else {
-                heapElements.set(heapElements.indexOf(node), parent);
-                heapElements.set(temp, node);
                 node.setRightChild(parent);
                 node.setLeftChild(parent.getLeftChild());
             }
-        }
     }
 
 
     private Node getParent(Node child) {
-        int childIndex = (heapElements.indexOf(child) + 1) / 2-1 ;
-        return heapElements.get(childIndex);
+        int parentIndex = (heapElements.indexOf(child) + 1) / 2-1 ;
+        if (parentIndex > 0){
+        return heapElements.get(parentIndex);
+        }
+        return null;
     }
 
+    //checking if the newly added node affects the structure of the heap
+    private boolean isBalanced(Node node, Node parent){
+        if (min && node.getData() > parent.getData()){
+            return true;
+        }
+        if (!min && node.getData() < parent.getData()){
+            return true;
+        }
+        return false;
+    }
 
 
 }
