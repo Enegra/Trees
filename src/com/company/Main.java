@@ -154,9 +154,66 @@ public class Main {
 //        System.out.println();
     }
 
+    static void presentHeap() throws Exception {
+        Heap heap = new Heap();
+        System.out.println("Heap");
+        System.out.println();
+        System.out.println("Adding node: 4");
+        heap.insert(4);
+        heap.print();
+        System.out.println("Adding node: 2");
+        heap.insert(2);
+        heap.print();
+        System.out.println("Adding node: 9");
+        heap.insert(9);
+        heap.print();
+        System.out.println("Adding node: 7");
+        heap.insert(7);
+        heap.print();
+        System.out.println("Adding node: 1");
+        heap.insert(1);
+        heap.print();
+        System.out.println("Adding node: 6");
+        heap.insert(6);
+        heap.print();
+        System.out.println("Adding node: 3");
+        heap.insert(3);
+        heap.print();
+        System.out.println("Adding node: 11");
+        heap.insert(11);
+        heap.print();
+        System.out.println("Adding node: 12");
+        heap.insert(12);
+        heap.print();
+        System.out.println("Adding node: 13");
+        heap.insert(13);
+        heap.print();
+        System.out.println("Adding node: 14");
+        heap.insert(14);
+        heap.print();
+        System.out.println("Adding node: 15");
+        heap.insert(15);
+        heap.print();
+//
+//        System.out.println();
+//        System.out.println("Removing node: 4");
+//        heap.remove(4);
+//        heap.print();
+//
+//        System.out.println();
+//        System.out.println("Subtree from node: 6");
+//        BinaryTree subtree = heap.subtree(6);
+//        subtree.print();
+//        System.out.println();
+//
+//        System.out.println("Path between nodes: root, 8");
+//        heap.path(8);
+    }
+
     public static void main(String[] args) throws Exception {
 //        presentBinaryTree();
 //        presentBST();
 //        presentAVL();
+        presentHeap();
     }
 }
