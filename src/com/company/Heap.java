@@ -39,7 +39,7 @@ public class Heap extends BinaryTree {
         }
     }
 
-    //todo fix incomplete nodes!!!
+    //todo fix incomplete nodes!!! - I think it should be fine now
 
     private void sort(Node node, Node parent) {
             //sets node as child of parent's parent if parent isn't root
@@ -62,6 +62,7 @@ public class Heap extends BinaryTree {
                 node.setRightChild(parent);
                 node.setLeftChild(parent.getLeftChild());
             }
+        fixIncompleteNodes(node,parent);
     }
 
 
@@ -82,6 +83,17 @@ public class Heap extends BinaryTree {
             return true;
         }
         return false;
+    }
+
+    private void fixIncompleteNodes(Node node, Node parent){
+        if (incompleteNodes.contains(node)){
+            int nodeIndex = incompleteNodes.indexOf(node);
+            if (incompleteNodes.contains(parent)){
+                int parentIndex = incompleteNodes.indexOf(parent);
+                incompleteNodes.set(parentIndex, node);
+            }
+            incompleteNodes.set(nodeIndex, parent);
+        }
     }
 
 
