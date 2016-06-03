@@ -54,8 +54,8 @@ public class Heap extends BinaryTree {
 
 
     private Node getParent(Node child) {
-        int childIndex = heapElements.indexOf(child) + 1 ;
-        return heapElements.get(childIndex/2);
+        int childIndex = (heapElements.indexOf(child) + 1) / 2-1 ;
+        return heapElements.get(childIndex);
     }
 
 
