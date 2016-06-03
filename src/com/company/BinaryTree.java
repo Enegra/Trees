@@ -21,7 +21,7 @@ public class BinaryTree {
 
     //to produce correct results for the entire tree I found it easiest to just keep record of current nodes that
     //don't have two children yet and always fill the oldest one first
-    private void insert(Node newNode) {
+    void insert(Node newNode) {
         if (root==null){
             root = newNode;
         }
