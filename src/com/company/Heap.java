@@ -38,7 +38,7 @@ public class Heap extends BinaryTree {
 
         }
     }
-    
+
     private void sort(Node node, Node parent) {
         //sets node as child of parent's parent if parent isn't root
         if (parent != root) {
@@ -94,6 +94,20 @@ public class Heap extends BinaryTree {
             incompleteNodes.set(nodeIndex, parent);
         }
     }
+
+    @Override
+    public void remove(int data) {
+            if (root == null) {
+                System.out.println("The tree is empty");
+            } else {
+                Node removedElement = search(data);
+                if (removedElement!=null) {
+                    remove(root, root, data);
+                    heapElements.remove(removedElement);
+                    //TODO fix stuff
+                }
+            }
+        }
 
 
 }
