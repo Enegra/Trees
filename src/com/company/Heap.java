@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by agnie on 6/2/2016.
@@ -40,6 +41,7 @@ public class Heap extends BinaryTree {
     }
 
     private void sort(Node node, Node parent) {
+        //TODO Sometimes sorts wrong
         //sets node as child of parent's parent if parent isn't root
         if (parent != root) {
             Node parentsParent = getParent(parent);
@@ -72,7 +74,7 @@ public class Heap extends BinaryTree {
 
 
     private Node getParent(Node child) {
-        int parentIndex = (heapElements.indexOf(child) + 1) / 2 -1;
+        int parentIndex = (heapElements.indexOf(child) + 1) / 2 - 1;
         if (parentIndex >= 0) {
             return heapElements.get(parentIndex);
         }
@@ -97,36 +99,90 @@ public class Heap extends BinaryTree {
 
     @Override
     public void remove(int data) {
-            if (root == null) {
-                System.out.println("The tree is empty");
-            } else {
-                Node removedElement = search(data);
-                if (removedElement!=null) {
-                    int removedIndex = heapElements.indexOf(removedElement);
-                    Node parent = getParent(removedElement);
-                    remove(root, root, data);
-                    heapElements.remove(removedElement);
-                    //TODO fix stuff - need to remove the removed element from the array, but first need to swap it with successor
-                    //todo after that we need to shuffle the heap if the successor violated the structure
-                    if (removedElement.getLeftChild()!=null&&removedElement.getRightChild()!=null){
-                        if (parent!=null){
-                            int successorIndex;
-                            if ((removedIndex+1)%2==0){
-                                successorIndex = heapElements.indexOf(parent.getLeftChild());
-                            }
-                            else {
-                                successorIndex = heapElements.indexOf(parent.getRightChild());
-                            }
-
+        if (root == null) {
+            System.out.println("The tree is empty");
+        } else {
+            Node removedElement = search(data);
+            if (removedElement != null) {
+                int removedIndex = heapElements.indexOf(removedElement);
+                Node parent = getParent(removedElement);
+                remove(root, root, data);
+                heapElements.remove(removedElement);
+                //TODO fix stuff - need to remove the removed element from the array, but first need to swap it with successor
+                //todo after that we need to shuffle the heap if the successor violated the structure
+                if (removedElement.getLeftChild() != null && removedElement.getRightChild() != null) {
+                    if (parent != null) {
+                        int successorIndex;
+                        if ((removedIndex + 1) % 2 == 0) {
+                            successorIndex = heapElements.indexOf(parent.getLeftChild());
+                            heapElements.set(removedIndex, heapElements.get(successorIndex));
+                            heapElements.remove(successorIndex);
+                        } else {
+                            successorIndex = heapElements.indexOf(parent.getRightChild());
+                            heapElements.set(removedIndex, heapElements.get(successorIndex));
+                            heapElements.remove(successorIndex);
                         }
-                        else {
-                            int successorIndex = heapElements.indexOf(root);
-                            //although if it's root then index is just 0...
-                        }
+                    } else {
+                        int successorIndex = heapElements.indexOf(root);
+                        //although if it's root then index is just 0...
+                        heapElements.set(removedIndex, heapElements.get(successorIndex));
+                        heapElements.remove(successorIndex);
                     }
+                }
+                Node successor = heapElements.get(removedIndex);
+
+                while (canSink(successor)) {
+                    sinkDown(successor, successor.getLeftChild(), successor.getRightChild());
                 }
             }
         }
+    }
 
+    //Checks if given node can be used for sinkDown
+    private boolean canSink(Node node) {
+        if (node.getLeftChild() != null && (node.getData() > node.getLeftChild().getData())) {
+            return true;
+        } else if ((node.getRightChild() != null) && node.getData() > node.getRightChild().getData()) {
+            return true;
+        }
+        return false;
+    }
+
+    private void sinkDown(Node node, Node leftChild, Node rightChild) {
+        if(node.getData() > leftChild.getData()){
+            sinkDown(node, leftChild);
+        } else {
+            sinkDown(node, rightChild);
+        }
+    }
+
+    private void sinkDown(Node parent, Node child) {
+        Node leftGrandChild = child.getLeftChild();
+        Node rightGrandChild = child.getRightChild();
+        Node grandParent = null;
+
+        if(parent != root) {
+             grandParent = getParent(parent);
+        }
+
+        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
+        if(parent.getLeftChild() == child) {
+            child.setLeftChild(parent);
+            child.setRightChild(parent.getRightChild());
+        } else {
+            child.setLeftChild(parent.getLeftChild());
+            child.setRightChild(parent);
+        }
+        parent.setLeftChild(leftGrandChild);
+        parent.setRightChild(rightGrandChild);
+
+        if(grandParent != null) {
+            if(grandParent.getLeftChild() == parent) {
+                grandParent.setLeftChild(child);
+            } else  {
+                grandParent.setRightChild(child);
+            }
+        }
+    }
 
 }

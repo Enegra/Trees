@@ -194,6 +194,10 @@ public class Main {
         System.out.println("Adding node: 15");
         heap.insert(15);
         heap.print();
+        System.out.println("Removing node: 2");
+        heap.remove(2);
+        heap.print();
+
 //
 //        System.out.println();
 //        System.out.println("Removing node: 4");
