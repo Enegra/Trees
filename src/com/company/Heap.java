@@ -108,25 +108,24 @@ public class Heap extends BinaryTree {
                 Node parent = getParent(removedElement);
                 remove(root, root, data);
 
+                //TODO fix stuff - need to remove the removed element from the array, but first need to swap it with successor
+                //todo after that we need to shuffle the heap if the successor violated the structure
                 if (removedElement.getLeftChild() != null && removedElement.getRightChild() != null) {
                     if (parent != null) {
                         int successorIndex;
                         if ((removedIndex + 1) % 2 == 0) {
                             successorIndex = heapElements.indexOf(parent.getLeftChild());
-                            Collections.swap(heapElements, removedIndex, successorIndex);
-                            //heapElements.set(removedIndex, heapElements.get(successorIndex));
+                            heapElements.set(removedIndex, heapElements.get(successorIndex));
                             heapElements.remove(successorIndex);
                         } else {
                             successorIndex = heapElements.indexOf(parent.getRightChild());
-                            Collections.swap(heapElements, removedIndex, successorIndex);
-                            //heapElements.set(removedIndex, heapElements.get(successorIndex));
+                            heapElements.set(removedIndex, heapElements.get(successorIndex));
                             heapElements.remove(successorIndex);
                         }
                     } else {
                         int successorIndex = heapElements.indexOf(root);
                         //although if it's root then index is just 0...
-                        Collections.swap(heapElements, removedIndex, successorIndex);
-                        //heapElements.set(removedIndex, heapElements.get(successorIndex));
+                        heapElements.set(removedIndex, heapElements.get(successorIndex));
                         heapElements.remove(successorIndex);
                     }
                     heapElements.remove(removedElement);
@@ -167,7 +166,11 @@ public class Heap extends BinaryTree {
              grandParent = getParent(parent);
         }
 
-        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
+        //Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
+
+        int parentIndex = heapElements.indexOf(parent);
+        heapElements.set(heapElements.indexOf(child), parent);
+        heapElements.set(parentIndex, child);
         if(parent.getLeftChild() == child) {
             child.setLeftChild(parent);
             child.setRightChild(parent.getRightChild());
