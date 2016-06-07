@@ -190,4 +190,38 @@ public class Heap extends BinaryTree {
         }
     }
 
+    private void swap(Node one, Node two){
+        int indexOne = heapElements.indexOf(one);
+        int indexTwo = heapElements.indexOf(two);
+        //replacing nodes in the tree
+        Node onesParent = getParent(one);
+        Node twosParent = getParent(two);
+        Node onesLeftChild = one.getLeftChild();
+        Node onesRightChild = one.getRightChild();
+        if (one!=root){
+            if (onesParent.getLeftChild()==one){
+                onesParent.setLeftChild(two);
+            }
+            else {
+                onesParent.setRightChild(two);
+            }
+        }
+        else {
+            root = two;
+        }
+        if (twosParent.getLeftChild()==two){
+            twosParent.setLeftChild(one);
+        }
+        else {
+            twosParent.setRightChild(one);
+        }
+        one.setLeftChild(two.getLeftChild());
+        one.setRightChild(two.getRightChild());
+        two.setLeftChild(onesLeftChild);
+        two.setRightChild(onesRightChild);
+        //fixing the indexes in the array
+        heapElements.set(indexOne, two);
+        heapElements.set(indexTwo, one);
+    }
+
 }
