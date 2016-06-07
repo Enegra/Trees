@@ -11,38 +11,38 @@ public class Node {
     private int height;
 
     //node constructor, setting default values
-    public Node(int data){
+    public Node(int data) {
         this.data = data;
         leftChild = null;
         rightChild = null;
         height = 1;
     }
 
-    public int getData(){
+    public int getData() {
         return data;
     }
 
-    public void setData(int data){
-        this.data=data;
+    public void setData(int data) {
+        this.data = data;
     }
 
-    public Node getLeftChild(){
+    public Node getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(Node leftChild){
-        this.leftChild=leftChild;
+    public void setLeftChild(Node leftChild) {
+        this.leftChild = leftChild;
     }
 
-    public Node getRightChild(){
+    public Node getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(Node rightChild){
-        this.rightChild=rightChild;
+    public void setRightChild(Node rightChild) {
+        this.rightChild = rightChild;
     }
 
-    public boolean equals(Node otherNode){
+    public boolean equals(Node otherNode) {
         return this.data == otherNode.data;
     }
 
@@ -50,12 +50,25 @@ public class Node {
         return (getLeftChild() == null && getRightChild() == null);
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height){
-        this.height=height;
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        String left= "NULL";
+        String right = "NULL";
+        if (this.getLeftChild() != null) {
+            left = Integer.toString(this.getLeftChild().data);
+        }
+        if (this.getRightChild() != null) {
+            right=Integer.toString(this.getRightChild().data);
+        }
+        return "Node: " + Integer.toString(data) + " Left: " + left + " Right: " + right;
     }
 
 }

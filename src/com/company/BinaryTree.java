@@ -214,9 +214,11 @@ public class BinaryTree {
         System.out.println();
     }
 
+
      void print(Node node) {
         if (node != null) {
-            System.out.print(node.getData() + " ");
+            System.out.print(node);
+            System.out.println();
             print(node.getLeftChild());
             print(node.getRightChild());
         }

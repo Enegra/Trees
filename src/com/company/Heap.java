@@ -222,6 +222,7 @@ public class Heap extends BinaryTree {
         //fixing the indexes in the array
         heapElements.set(indexOne, two);
         heapElements.set(indexTwo, one);
+        fixIncompleteNodes(two, one);
     }
 
 }
