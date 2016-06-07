@@ -169,9 +169,10 @@ public class Heap extends BinaryTree {
         //Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
 
         int parentIndex = heapElements.indexOf(parent);
-        heapElements.set(heapElements.indexOf(child), parent);
+        int childIndex = heapElements.indexOf(child);
+        heapElements.set(childIndex, parent);
         heapElements.set(parentIndex, child);
-        if(parent.getLeftChild() == child) {
+        if(isLeftChild(childIndex)) {
             child.setLeftChild(parent);
             child.setRightChild(parent.getRightChild());
         } else {
