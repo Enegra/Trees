@@ -113,7 +113,7 @@ public class Heap extends BinaryTree {
                 if (removedElement.getLeftChild() != null && removedElement.getRightChild() != null) {
                     if (parent != null) {
                         int successorIndex;
-                        if ((removedIndex + 1) % 2 == 0) {
+                        if (isLeftChild(removedIndex)) {
                             successorIndex = heapElements.indexOf(parent.getLeftChild());
                             heapElements.set(removedIndex, heapElements.get(successorIndex));
                             heapElements.remove(successorIndex);
@@ -199,7 +199,7 @@ public class Heap extends BinaryTree {
         Node onesLeftChild = one.getLeftChild();
         Node onesRightChild = one.getRightChild();
         if (one!=root){
-            if (onesParent.getLeftChild()==one){
+            if (isLeftChild(indexOne)){
                 onesParent.setLeftChild(two);
             }
             else {
@@ -209,7 +209,7 @@ public class Heap extends BinaryTree {
         else {
             root = two;
         }
-        if (twosParent.getLeftChild()==two){
+        if (isLeftChild(indexTwo)){
             twosParent.setLeftChild(one);
         }
         else {
@@ -223,6 +223,10 @@ public class Heap extends BinaryTree {
         heapElements.set(indexOne, two);
         heapElements.set(indexTwo, one);
         fixIncompleteNodes(two, one);
+    }
+
+    private boolean isLeftChild(int index){
+        return (index + 1) % 2 == 0;
     }
 
 }
