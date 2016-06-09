@@ -82,11 +82,30 @@ public class Main {
         System.out.println("Removing node: 4");
         binarySearchTree.remove(4);
         binarySearchTree.print();
-
-        System.out.println("Subtree from node: 5");
-        BinaryTree subtree = binarySearchTree.subtree(5);
-        subtree.print();
-        System.out.println();
+        System.out.println("Adding node: 7");
+        binarySearchTree.insert(7);
+        binarySearchTree.print();
+        System.out.println("Adding node: 9");
+        binarySearchTree.insert(9);
+        binarySearchTree.print();
+        System.out.println("Adding node: 23");
+        binarySearchTree.insert(23);
+        binarySearchTree.print();
+        System.out.println("Adding node: 28");
+        binarySearchTree.insert(28);
+        binarySearchTree.print();
+        System.out.println("Adding node: 35");
+        binarySearchTree.insert(35);
+        binarySearchTree.print();
+        System.out.println("Adding node: 45");
+        binarySearchTree.insert(45);
+        binarySearchTree.print();
+        System.out.println("Adding node: 41");
+        binarySearchTree.insert(41);
+        binarySearchTree.print();
+        System.out.println("Adding node: 55");
+        binarySearchTree.insert(55);
+        binarySearchTree.print();
     }
 
     static void presentAVL() throws Exception {
@@ -217,7 +236,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 //        presentBinaryTree();
 //        presentBST();
-//        presentAVL();
-        presentHeap();
+        presentAVL();
+//        presentHeap();
     }
 }
