@@ -124,11 +124,12 @@ public class Heap extends BinaryTree {
                         heapElements.remove(successorIndex);
                     }
                     heapElements.remove(removedElement);
+                    Node successor = heapElements.get(removedIndex);
+                    while (canSink(successor)) {
+                        sinkDown(successor, successor.getLeftChild(), successor.getRightChild());
+                    }
                 }
-                Node successor = heapElements.get(removedIndex);
-                while (canSink(successor)) {
-                    sinkDown(successor, successor.getLeftChild(), successor.getRightChild());
-                }
+
             }
         }
     }
