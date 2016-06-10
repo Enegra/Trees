@@ -5,95 +5,74 @@ package com.company;
  */
 public class AVLTree extends BinarySearchTree {
 
-    private int getHeight(Node node){
-        if (node!=null){
-            return node.getHeight();
-        }
-        else return 0;
-    }
 
     @Override
-    public void insert(int data){
-        if (search(data)==null) {
-            Node node = new Node(data);
-            insert(root, node);
-        }
-    }
-
-    @Override
-    void insert(Node parent, Node newNode) {
+    public void insert(int data) {
+        Node node = new Node(data);
         if (root == null) {
-            root = newNode;
+            root = node;
         } else {
-            if (parent.getData() > newNode.getData()) {
-                if (parent.getLeftChild() == null) {
-                    parent.setLeftChild(newNode);
-                    parent.setHeight(maximum(getHeight(parent.getLeftChild()),getHeight(parent.getRightChild())) + 1);
-                    rebalance(parent,parent.getData());
-                } else {
-                    insert(parent.getLeftChild(), newNode);
-                }
-            } else {
-                if (parent.getRightChild() == null) {
-                    parent.setRightChild(newNode);
-                    parent.setHeight(maximum(getHeight(parent.getLeftChild()),getHeight(parent.getRightChild())) + 1);
-                    rebalance(parent,parent.getData());
-                } else {
-                    insert(parent.getRightChild(), newNode);
-                }
-            }
+            recursiveInsert(root, node);
         }
-
     }
 
-    private int maximum(int left, int right){
-        if (left>right) {
+
+    Node recursiveInsert(Node current, Node newNode) {
+        if (current == null) {
+            current = newNode;
+            return current;
+        } else if (newNode.getData() < current.getData()) {
+            current.setLeftChild(recursiveInsert(current.getLeftChild(), newNode));
+            current = rebalance(current);
+        } else if (newNode.getData() > current.getData()) {
+            current.setRightChild(recursiveInsert(current.getRightChild(), newNode));
+            current = rebalance(current);
+        }
+        return current;
+    }
+
+
+    private int maximum(int left, int right) {
+        if (left > right) {
             return left;
         }
-        else return right;
+        return right;
     }
 
-    private Node rotateRight(Node parent){
+    private Node rotateRight(Node parent) {
         Node pivot = parent.getRightChild();
         parent.setRightChild(pivot.getLeftChild());
         pivot.setLeftChild(parent);
-        pivot.setHeight(maximum(getHeight(pivot.getLeftChild()), getHeight(pivot.getRightChild())) +1);
-        parent.setHeight(maximum(getHeight(parent.getLeftChild()), getHeight(parent.getRightChild())) +1);
-        root = pivot;
+        if (parent == root) {
+            root = pivot;
+        }
         return pivot;
     }
 
-    private Node rotateLeft(Node parent){
+    private Node rotateLeft(Node parent) {
         Node pivot = parent.getLeftChild();
         parent.setLeftChild(pivot.getRightChild());
         pivot.setRightChild(parent);
-        pivot.setHeight(maximum(getHeight(pivot.getLeftChild()),getHeight(pivot.getRightChild())) +1);
-        parent.setHeight(maximum(getHeight(parent.getLeftChild()), getHeight(parent.getRightChild())) +1);
-        root = pivot;
+        if (parent == root) {
+            root = pivot;
+        }
         return pivot;
     }
 
-    private Node rotateLeftRight(Node parent){
+    private Node rotateLeftRight(Node parent) {
         Node pivot = parent.getLeftChild();
         parent.setLeftChild(rotateRight(pivot));
         return rotateLeft(parent);
     }
 
-    private Node rotateRightLeft(Node parent){
+    private Node rotateRightLeft(Node parent) {
         Node pivot = parent.getRightChild();
         parent.setRightChild(rotateLeft(pivot));
         return rotateRight(parent);
     }
 
-    private int getBalance(Node node){
-        if (node!=null){
-            return (getHeight(node.getLeftChild()) - getHeight(node.getRightChild()));
-        }
-        else return 0;
-    }
-
     @Override
-    public void remove(int data){
+    public void remove(int data) {
         if (root == null) {
             System.out.println("The tree is empty");
         } else remove(root, root, data);
@@ -104,7 +83,7 @@ public class AVLTree extends BinarySearchTree {
     boolean remove(Node current, Node parent, int data) {
         if (current.getData() == data) {
             remove(current, parent);
-            rebalance(parent, parent.getData());
+            rebalance(parent);
             return true;
         } else {
             if (data < current.getData()) {
@@ -124,25 +103,43 @@ public class AVLTree extends BinarySearchTree {
         return false;
     }
 
-    private void rebalance(Node node, int data){
-        //checking node balance
+
+    private Node rebalance(Node node) {
         int balance = getBalance(node);
-        //left case
-        if (balance > 1 && data < node.getLeftChild().getData()) {
-            rotateRight(node);
+
+        if (balance > 1) {
+            if (getBalance(node.getLeftChild()) > 0) {
+                node = rotateLeft(node);
+            } else {
+                node = rotateLeftRight(node);
+            }
+        } else if (balance < -1) {
+            if (getBalance(node.getRightChild()) > 0) {
+                node = rotateRightLeft(node);
+            } else {
+                node = rotateRight(node);
+            }
         }
-        //right case
-        else if (balance < -1 && data > node.getRightChild().getData()) {
-            rotateLeft(node);
-        }
-        //left-right case
-        else if (balance > 1 && data > node.getLeftChild().getData()) {
-            rotateLeftRight(node);
-        }
-        //right-left case
-        else if (balance < -1 && data < node.getRightChild().getData()) {
-            rotateRightLeft(node);
-        }
+        return node;
     }
+
+    private int getBalance(Node node) {
+        int left = getHeight(node.getLeftChild());
+        int right = getHeight(node.getRightChild());
+        int balance = left - right;
+        return balance;
+    }
+
+    private int getHeight(Node node) {
+        int height = 0;
+        if (node != null) {
+            int left = getHeight(node.getLeftChild());
+            int right = getHeight(node.getRightChild());
+            int largest = maximum(left, right);
+            height = largest + 1;
+        }
+        return height;
+    }
+
 
 }
