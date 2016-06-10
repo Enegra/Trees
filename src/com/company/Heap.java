@@ -136,12 +136,7 @@ public class Heap extends BinaryTree {
 
     //Checks if given node can be used for sinkDown
     private boolean canSink(Node node) {
-        if (node.getLeftChild() != null && (node.getData() > node.getLeftChild().getData())) {
-            return true;
-        } else if ((node.getRightChild() != null) && node.getData() > node.getRightChild().getData()) {
-            return true;
-        }
-        return false;
+        return (node.getLeftChild() != null && !isBalanced(node.getLeftChild(),node)||(node.getRightChild() != null) &&!isBalanced(node.getRightChild(),node));
     }
 
     private void sinkDown(Node node, Node leftChild, Node rightChild) {
@@ -151,7 +146,7 @@ public class Heap extends BinaryTree {
             swap(node, rightChild);
         }
     }
-    
+
     private void swap(Node one, Node two){
         int indexOne = heapElements.indexOf(one);
         int indexTwo = heapElements.indexOf(two);
