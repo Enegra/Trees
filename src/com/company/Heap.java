@@ -33,44 +33,11 @@ public class Heap extends BinaryTree {
             heapElements.add(newNode);
             Node parent = getParent(newNode);
             while (parent != null && !isBalanced(newNode, parent)) {
-                sort(newNode, parent);
+                swap(parent,newNode);
                 parent = getParent(newNode);
             }
         }
     }
-
-    private void sort(Node node, Node parent) {
-//        //sets node as child of parent's parent if parent isn't root
-//        if (parent != root) {
-//            Node parentsParent = getParent(parent);
-//            if (parentsParent.getLeftChild() == parent) {
-//                parentsParent.setLeftChild(node);
-//            } else {
-//                parentsParent.setRightChild(node);
-//            }
-//        }
-//        //swaps around node and parent in binary tree and heapElements
-//        int parentIndex = heapElements.indexOf(parent);
-//        heapElements.set(heapElements.indexOf(node), parent);
-//        heapElements.set(parentIndex, node);
-//        Node leftChild = node.getLeftChild();
-//        Node rightChild = node.getRightChild();
-//        if (parent.getLeftChild() == node) {
-//            node.setLeftChild(parent);
-//            node.setRightChild(parent.getRightChild());
-//        } else {
-//            node.setRightChild(parent);
-//            node.setLeftChild(parent.getLeftChild());
-//        }
-//        parent.setLeftChild(leftChild);
-//        parent.setRightChild(rightChild);
-//        fixIncompleteNodes(node, parent);
-//        if (root == parent) {
-//            root = node;
-//        }
-        swap(parent,node);
-    }
-
 
     private Node getParent(Node child) {
         int parentIndex = (heapElements.indexOf(child) + 1) / 2 - 1;

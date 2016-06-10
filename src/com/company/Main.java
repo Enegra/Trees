@@ -233,10 +233,69 @@ public class Main {
         heap.path(11);
     }
 
+    static void presentMaxHeap() throws Exception {
+        Heap maxHeap = new Heap(false);
+        System.out.println("Heap");
+        System.out.println();
+        System.out.println("Adding node: 4");
+        maxHeap.insert(4);
+        maxHeap.print();
+        System.out.println("Adding node: 2");
+        maxHeap.insert(2);
+        maxHeap.print();
+        System.out.println("Adding node: 9");
+        maxHeap.insert(9);
+        maxHeap.print();
+        System.out.println("Adding node: 7");
+        maxHeap.insert(7);
+        maxHeap.print();
+        System.out.println("Adding node: 1");
+        maxHeap.insert(1);
+        maxHeap.print();
+        System.out.println("Adding node: 6");
+        maxHeap.insert(6);
+        maxHeap.print();
+        System.out.println("Adding node: 3");
+        maxHeap.insert(3);
+        maxHeap.print();
+        System.out.println("Adding node: 11");
+        maxHeap.insert(11);
+        maxHeap.print();
+        System.out.println("Adding node: 12");
+        maxHeap.insert(12);
+        maxHeap.print();
+        System.out.println("Adding node: 13");
+        maxHeap.insert(13);
+        maxHeap.print();
+        System.out.println("Adding node: 14");
+        maxHeap.insert(14);
+        maxHeap.print();
+        System.out.println("Adding node: 15");
+        maxHeap.insert(15);
+        maxHeap.print();
+        System.out.println("Removing node: 2");
+        maxHeap.remove(2);
+        maxHeap.print();
+        System.out.println();
+        System.out.println("Removing node: 4");
+        maxHeap.remove(4);
+        maxHeap.print();
+
+        System.out.println();
+        System.out.println("Subtree from node: 11");
+        BinaryTree subtree = maxHeap.subtree(11);
+        subtree.print();
+        System.out.println();
+
+        System.out.println("Path between nodes: root, 11");
+        maxHeap.path(11);
+    }
+
     public static void main(String[] args) throws Exception {
 //        presentBinaryTree();
 //        presentBST();
 //        presentAVL();
-        presentHeap();
+//        presentHeap();
+        presentMaxHeap();
     }
 }
