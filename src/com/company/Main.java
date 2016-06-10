@@ -106,11 +106,14 @@ public class Main {
         System.out.println("Adding node: 55");
         binarySearchTree.insert(55);
         binarySearchTree.print();
+        System.out.println("Path between nodes: root, 35");
+        binarySearchTree.path(35);
+
     }
 
     static void presentAVL() throws Exception {
         AVLTree avlTree = new AVLTree();
-        System.out.println("Binary Tree");
+        System.out.println("AVL Tree");
         System.out.println();
         System.out.println("Adding node: 15");
         avlTree.insert(15);
@@ -163,14 +166,13 @@ public class Main {
         System.out.println("Adding node: 55");
         avlTree.insert(55);
         avlTree.print();
-//
-//
-//
-//
-//        System.out.println("Subtree from node: 5");
-//        BinaryTree subtree = avlTree.subtree(5);
-//        subtree.print();
-//        System.out.println();
+        System.out.println("Subtree from node: 5");
+        BinaryTree subtree = avlTree.subtree(5);
+        subtree.print();
+        System.out.println();
+        System.out.println("Path between nodes: root, 35");
+        avlTree.path(35);
+
     }
 
     static void presentHeap() throws Exception {
@@ -216,27 +218,25 @@ public class Main {
         System.out.println("Removing node: 2");
         heap.remove(2);
         heap.print();
+        System.out.println();
+        System.out.println("Removing node: 4");
+        heap.remove(4);
+        heap.print();
 
-//
-//        System.out.println();
-//        System.out.println("Removing node: 4");
-//        heap.remove(4);
-//        heap.print();
-//
-//        System.out.println();
-//        System.out.println("Subtree from node: 6");
-//        BinaryTree subtree = heap.subtree(6);
-//        subtree.print();
-//        System.out.println();
-//
-//        System.out.println("Path between nodes: root, 8");
-//        heap.path(8);
+        System.out.println();
+        System.out.println("Subtree from node: 11");
+        BinaryTree subtree = heap.subtree(11);
+        subtree.print();
+        System.out.println();
+
+        System.out.println("Path between nodes: root, 11");
+        heap.path(11);
     }
 
     public static void main(String[] args) throws Exception {
 //        presentBinaryTree();
 //        presentBST();
-        presentAVL();
-//        presentHeap();
+//        presentAVL();
+        presentHeap();
     }
 }
