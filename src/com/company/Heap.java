@@ -153,18 +153,18 @@ public class Heap extends BinaryTree {
     }
 
     private void sinkDown(Node parent, Node child) {
-        Node leftGrandChild = child.getLeftChild();
-        Node rightGrandChild = child.getRightChild();
-        Node grandParent = null;
-
-        if(parent != root) {
-             grandParent = getParent(parent);
-        }
-
-//        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
-
-        int parentIndex = heapElements.indexOf(parent);
-        int childIndex = heapElements.indexOf(child);
+//        Node leftGrandChild = child.getLeftChild();
+//        Node rightGrandChild = child.getRightChild();
+//        Node grandParent = null;
+//
+//        if(parent != root) {
+//             grandParent = getParent(parent);
+//        }
+//
+////        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
+//
+//        int parentIndex = heapElements.indexOf(parent);
+//        int childIndex = heapElements.indexOf(child);
         swap(parent,child);
 //        heapElements.set(childIndex, parent);
 //        heapElements.set(parentIndex, child);
@@ -175,26 +175,25 @@ public class Heap extends BinaryTree {
 //            child.setLeftChild(parent.getLeftChild());
 //            child.setRightChild(parent);
 //        }
-        parent.setLeftChild(leftGrandChild);
-        parent.setRightChild(rightGrandChild);
-
-        if(grandParent != null) {
-            if(grandParent.getLeftChild() == parent) {
-                grandParent.setLeftChild(child);
-            } else  {
-                grandParent.setRightChild(child);
-            }
-        }
+//        parent.setLeftChild(leftGrandChild);
+//        parent.setRightChild(rightGrandChild);
+//
+//        if(grandParent != null) {
+//            if(grandParent.getLeftChild() == parent) {
+//                grandParent.setLeftChild(child);
+//            } else  {
+//                grandParent.setRightChild(child);
+//            }
+//        }
     }
 
     private void swap(Node one, Node two){
         int indexOne = heapElements.indexOf(one);
         int indexTwo = heapElements.indexOf(two);
-//        swapNodes(one, two, indexOne, indexTwo);
+        swapNodes(one, two);
         heapElements.set(indexOne, two);
         heapElements.set(indexTwo, one);
         fixIncompleteNodes(two, one);
-        swapNodes(one, two);
     }
 
     private void swapNodes(Node parent, Node child){
