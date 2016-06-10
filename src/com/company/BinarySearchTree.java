@@ -9,7 +9,7 @@ public class BinarySearchTree extends BinaryTree {
         root = null;
     }
 
-    void insert(Node parent, Node newNode) {
+   private void insert(Node parent, Node newNode) {
         if (root == null) {
             root = newNode;
         } else {

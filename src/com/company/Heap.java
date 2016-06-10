@@ -36,12 +36,10 @@ public class Heap extends BinaryTree {
                 sort(newNode, parent);
                 parent = getParent(newNode);
             }
-
         }
     }
 
     private void sort(Node node, Node parent) {
-        //TODO Sometimes sorts wrong
         //sets node as child of parent's parent if parent isn't root
         if (parent != root) {
             Node parentsParent = getParent(parent);
@@ -107,9 +105,6 @@ public class Heap extends BinaryTree {
                 int removedIndex = heapElements.indexOf(removedElement);
                 Node parent = getParent(removedElement);
                 remove(root, root, data);
-
-                //TODO fix stuff - need to remove the removed element from the array, but first need to swap it with successor
-                //todo after that we need to shuffle the heap if the successor violated the structure
                 if (removedElement.getLeftChild() != null && removedElement.getRightChild() != null) {
                     if (parent != null) {
                         int successorIndex;
@@ -131,7 +126,6 @@ public class Heap extends BinaryTree {
                     heapElements.remove(removedElement);
                 }
                 Node successor = heapElements.get(removedIndex);
-
                 while (canSink(successor)) {
                     sinkDown(successor, successor.getLeftChild(), successor.getRightChild());
                 }
@@ -166,12 +160,13 @@ public class Heap extends BinaryTree {
              grandParent = getParent(parent);
         }
 
-        //Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
+//        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
 
         int parentIndex = heapElements.indexOf(parent);
         int childIndex = heapElements.indexOf(child);
-        heapElements.set(childIndex, parent);
-        heapElements.set(parentIndex, child);
+        swap(parent,child);
+//        heapElements.set(childIndex, parent);
+//        heapElements.set(parentIndex, child);
         if(isLeftChild(childIndex)) {
             child.setLeftChild(parent);
             child.setRightChild(parent.getRightChild());
@@ -194,6 +189,13 @@ public class Heap extends BinaryTree {
     private void swap(Node one, Node two){
         int indexOne = heapElements.indexOf(one);
         int indexTwo = heapElements.indexOf(two);
+//        swapNodes(one, two, indexOne, indexTwo);
+        heapElements.set(indexOne, two);
+        heapElements.set(indexTwo, one);
+        fixIncompleteNodes(two, one);
+    }
+
+    private void swapNodes(Node one, Node two, int indexOne, int indexTwo){
         //replacing nodes in the tree
         Node onesParent = getParent(one);
         Node twosParent = getParent(two);
@@ -220,10 +222,6 @@ public class Heap extends BinaryTree {
         one.setRightChild(two.getRightChild());
         two.setLeftChild(onesLeftChild);
         two.setRightChild(onesRightChild);
-        //fixing the indexes in the array
-        heapElements.set(indexOne, two);
-        heapElements.set(indexTwo, one);
-        fixIncompleteNodes(two, one);
     }
 
     private boolean isLeftChild(int index){

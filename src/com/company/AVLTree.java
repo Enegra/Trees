@@ -12,20 +12,19 @@ public class AVLTree extends BinarySearchTree {
         if (root == null) {
             root = node;
         } else {
-            recursiveInsert(root, node);
+            insert(root, node);
         }
     }
 
-
-    Node recursiveInsert(Node current, Node newNode) {
+    private Node insert(Node current, Node newNode) {
         if (current == null) {
             current = newNode;
             return current;
         } else if (newNode.getData() < current.getData()) {
-            current.setLeftChild(recursiveInsert(current.getLeftChild(), newNode));
+            current.setLeftChild(insert(current.getLeftChild(), newNode));
             current = rebalance(current);
         } else if (newNode.getData() > current.getData()) {
-            current.setRightChild(recursiveInsert(current.getRightChild(), newNode));
+            current.setRightChild(insert(current.getRightChild(), newNode));
             current = rebalance(current);
         }
         return current;
@@ -106,7 +105,6 @@ public class AVLTree extends BinarySearchTree {
 
     private Node rebalance(Node node) {
         int balance = getBalance(node);
-
         if (balance > 1) {
             if (getBalance(node.getLeftChild()) > 0) {
                 node = rotateLeft(node);
