@@ -40,34 +40,35 @@ public class Heap extends BinaryTree {
     }
 
     private void sort(Node node, Node parent) {
-        //sets node as child of parent's parent if parent isn't root
-        if (parent != root) {
-            Node parentsParent = getParent(parent);
-            if (parentsParent.getLeftChild() == parent) {
-                parentsParent.setLeftChild(node);
-            } else {
-                parentsParent.setRightChild(node);
-            }
-        }
-        //swaps around node and parent in binary tree and heapElements
-        int parentIndex = heapElements.indexOf(parent);
-        heapElements.set(heapElements.indexOf(node), parent);
-        heapElements.set(parentIndex, node);
-        Node leftChild = node.getLeftChild();
-        Node rightChild = node.getRightChild();
-        if (parent.getLeftChild() == node) {
-            node.setLeftChild(parent);
-            node.setRightChild(parent.getRightChild());
-        } else {
-            node.setRightChild(parent);
-            node.setLeftChild(parent.getLeftChild());
-        }
-        parent.setLeftChild(leftChild);
-        parent.setRightChild(rightChild);
-        fixIncompleteNodes(node, parent);
-        if (root == parent) {
-            root = node;
-        }
+//        //sets node as child of parent's parent if parent isn't root
+//        if (parent != root) {
+//            Node parentsParent = getParent(parent);
+//            if (parentsParent.getLeftChild() == parent) {
+//                parentsParent.setLeftChild(node);
+//            } else {
+//                parentsParent.setRightChild(node);
+//            }
+//        }
+//        //swaps around node and parent in binary tree and heapElements
+//        int parentIndex = heapElements.indexOf(parent);
+//        heapElements.set(heapElements.indexOf(node), parent);
+//        heapElements.set(parentIndex, node);
+//        Node leftChild = node.getLeftChild();
+//        Node rightChild = node.getRightChild();
+//        if (parent.getLeftChild() == node) {
+//            node.setLeftChild(parent);
+//            node.setRightChild(parent.getRightChild());
+//        } else {
+//            node.setRightChild(parent);
+//            node.setLeftChild(parent.getLeftChild());
+//        }
+//        parent.setLeftChild(leftChild);
+//        parent.setRightChild(rightChild);
+//        fixIncompleteNodes(node, parent);
+//        if (root == parent) {
+//            root = node;
+//        }
+        swap(parent,node);
     }
 
 
@@ -140,7 +141,7 @@ public class Heap extends BinaryTree {
     }
 
     private void sinkDown(Node node, Node leftChild, Node rightChild) {
-        if(node.getData() > leftChild.getData()){
+        if(!isBalanced(leftChild,node)){
             swap(node, leftChild);
         } else {
             swap(node, rightChild);
