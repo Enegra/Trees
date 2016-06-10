@@ -146,47 +146,12 @@ public class Heap extends BinaryTree {
 
     private void sinkDown(Node node, Node leftChild, Node rightChild) {
         if(node.getData() > leftChild.getData()){
-            sinkDown(node, leftChild);
+            swap(node, leftChild);
         } else {
-            sinkDown(node, rightChild);
+            swap(node, rightChild);
         }
     }
-
-    private void sinkDown(Node parent, Node child) {
-//        Node leftGrandChild = child.getLeftChild();
-//        Node rightGrandChild = child.getRightChild();
-//        Node grandParent = null;
-//
-//        if(parent != root) {
-//             grandParent = getParent(parent);
-//        }
-//
-////        Collections.swap(heapElements, heapElements.indexOf(child), heapElements.indexOf(parent));
-//
-//        int parentIndex = heapElements.indexOf(parent);
-//        int childIndex = heapElements.indexOf(child);
-        swap(parent,child);
-//        heapElements.set(childIndex, parent);
-//        heapElements.set(parentIndex, child);
-//        if(isLeftChild(childIndex)) {
-//            child.setLeftChild(parent);
-//            child.setRightChild(parent.getRightChild());
-//        } else {
-//            child.setLeftChild(parent.getLeftChild());
-//            child.setRightChild(parent);
-//        }
-//        parent.setLeftChild(leftGrandChild);
-//        parent.setRightChild(rightGrandChild);
-//
-//        if(grandParent != null) {
-//            if(grandParent.getLeftChild() == parent) {
-//                grandParent.setLeftChild(child);
-//            } else  {
-//                grandParent.setRightChild(child);
-//            }
-//        }
-    }
-
+    
     private void swap(Node one, Node two){
         int indexOne = heapElements.indexOf(one);
         int indexTwo = heapElements.indexOf(two);
@@ -212,7 +177,6 @@ public class Heap extends BinaryTree {
         else {
             root = child;
         }
-
         if(parent.getLeftChild() == child) {
             child.setLeftChild(parent);
             child.setRightChild(parent.getRightChild());
