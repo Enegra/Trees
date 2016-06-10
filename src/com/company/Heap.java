@@ -168,13 +168,13 @@ public class Heap extends BinaryTree {
         swap(parent,child);
 //        heapElements.set(childIndex, parent);
 //        heapElements.set(parentIndex, child);
-        if(isLeftChild(childIndex)) {
-            child.setLeftChild(parent);
-            child.setRightChild(parent.getRightChild());
-        } else {
-            child.setLeftChild(parent.getLeftChild());
-            child.setRightChild(parent);
-        }
+//        if(isLeftChild(childIndex)) {
+//            child.setLeftChild(parent);
+//            child.setRightChild(parent.getRightChild());
+//        } else {
+//            child.setLeftChild(parent.getLeftChild());
+//            child.setRightChild(parent);
+//        }
         parent.setLeftChild(leftGrandChild);
         parent.setRightChild(rightGrandChild);
 
@@ -194,35 +194,35 @@ public class Heap extends BinaryTree {
         heapElements.set(indexOne, two);
         heapElements.set(indexTwo, one);
         fixIncompleteNodes(two, one);
+        swapNodes(one, two);
     }
 
-    private void swapNodes(Node one, Node two, int indexOne, int indexTwo){
+    private void swapNodes(Node parent, Node child){
         //replacing nodes in the tree
-        Node onesParent = getParent(one);
-        Node twosParent = getParent(two);
-        Node onesLeftChild = one.getLeftChild();
-        Node onesRightChild = one.getRightChild();
-        if (one!=root){
-            if (isLeftChild(indexOne)){
-                onesParent.setLeftChild(two);
+        Node grandParent = getParent(parent);
+        Node leftGrandChild = child.getLeftChild();
+        Node rightGrandChild = child.getRightChild();
+        if (parent!=root){
+            if (grandParent.getLeftChild() == parent){
+                grandParent.setLeftChild(child);
             }
             else {
-                onesParent.setRightChild(two);
+                grandParent.setRightChild(child);
             }
         }
         else {
-            root = two;
+            root = child;
         }
-        if (isLeftChild(indexTwo)){
-            twosParent.setLeftChild(one);
+
+        if(parent.getLeftChild() == child) {
+            child.setLeftChild(parent);
+            child.setRightChild(parent.getRightChild());
+        } else {
+            child.setLeftChild(parent.getLeftChild());
+            child.setRightChild(parent);
         }
-        else {
-            twosParent.setRightChild(one);
-        }
-        one.setLeftChild(two.getLeftChild());
-        one.setRightChild(two.getRightChild());
-        two.setLeftChild(onesLeftChild);
-        two.setRightChild(onesRightChild);
+        parent.setLeftChild(leftGrandChild);
+        parent.setRightChild(rightGrandChild);
     }
 
     private boolean isLeftChild(int index){
